@@ -1,0 +1,8 @@
+# Android-Homework3
+Android-Homework3
+
+按照要求完成了作业
+EX3中，在Fragment中嵌套RecyclerView，同时将三个相同的Fragment加入了ViewPager
+由于Fragment中包含了动画效果，所以采用了懒加载的方式，防止动画效果展示不全
+由于动画效果是通过有延迟执行效果的代码实现的，所以在懒加载中采用了时间戳的方式来重置动画效果以及停止动画执行
+
