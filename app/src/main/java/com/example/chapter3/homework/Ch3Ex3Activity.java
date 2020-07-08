@@ -37,7 +37,7 @@ public class Ch3Ex3Activity extends AppCompatActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return "Hello " + position;
+                return "List " + position;
             }
         });
 
