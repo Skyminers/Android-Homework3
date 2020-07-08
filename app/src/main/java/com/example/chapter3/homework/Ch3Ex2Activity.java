@@ -2,6 +2,7 @@ package com.example.chapter3.homework;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -128,21 +129,43 @@ public class Ch3Ex2Activity extends AppCompatActivity {
 
         // 在这里实现了一个 ObjectAnimator，对 target 控件的背景色进行修改
         // 可以思考下，这里为什么要使用 ofArgb，而不是 ofInt 呢？
+        // 因为这里传入的参数是描述颜色的ARGB代码，所以使用 ofArgb
+
         ObjectAnimator animator1 = ObjectAnimator.ofArgb(target,
                 "backgroundColor",
                 getBackgroundColor(startColorPicker),
                 getBackgroundColor(endColorPicker));
-        animator1.setDuration(Integer.parseInt(durationSelector.getText().toString()));
+
+        int durationValue = Integer.parseInt(durationSelector.getText().toString());
+
+        animator1.setDuration(durationValue);
         animator1.setRepeatCount(ObjectAnimator.INFINITE);
         animator1.setRepeatMode(ObjectAnimator.REVERSE);
 
         // TODO ex2-1：在这里实现另一个 ObjectAnimator，对 target 控件的大小进行缩放，从 1 到 2 循环
+        ObjectAnimator animator2X = ObjectAnimator.ofFloat(target, "scaleX", 1f, 2f);
+        ObjectAnimator animator2Y = ObjectAnimator.ofFloat(target, "scaleY", 1f, 2f);
+
+        animator2X.setRepeatCount(ValueAnimator.INFINITE);
+        animator2Y.setRepeatCount(ValueAnimator.INFINITE);
+
+        animator2X.setDuration(durationValue*2);
+        animator2Y.setDuration(durationValue*2);
+
+        animator2X.setRepeatMode(ValueAnimator.REVERSE);
+        animator2Y.setRepeatMode(ValueAnimator.REVERSE);
 
         // TODO ex2-2：在这里实现另一个 ObjectAnimator，对 target 控件的透明度进行修改，从 1 到 0.5f 循环
 
+        ObjectAnimator animator3 = ObjectAnimator.ofFloat(target,"alpha",1f,0.5f);
+        animator3.setRepeatCount(ValueAnimator.INFINITE);
+        animator3.setDuration(durationValue/2);
+        animator3.setRepeatMode(ValueAnimator.REVERSE);
+
         // TODO ex2-3: 将上面创建的其他 ObjectAnimator 都添加到 AnimatorSet 中
         animatorSet = new AnimatorSet();
-        animatorSet.playTogether(animator1);
+
+        animatorSet.playTogether(animator1,animator2X,animator2Y,animator3);
         animatorSet.start();
     }
 }
